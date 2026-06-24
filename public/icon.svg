@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <rect width="120" height="120" rx="26" fill="#7c3aed"/>
+  <text x="60" y="52" font-family="Arial Black, Arial" font-weight="900" font-size="36" fill="#ffffff" text-anchor="middle">R</text>
+  <rect x="15" y="65" width="90" height="2" rx="1" fill="#ffffff" opacity="0.2"/>
+  <text x="60" y="90" font-family="Arial Black, Arial" font-weight="900" font-size="15" fill="#ffffff" text-anchor="middle" opacity="0.85" letter-spacing="2">GZ</text>
+</svg>
