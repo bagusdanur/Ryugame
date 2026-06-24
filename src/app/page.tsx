@@ -65,6 +65,8 @@ export default function Home() {
             title="Baru Dirilis"
             subtitle="Game terbaru yang siap Anda mainkan"
             icon={<Clock className="w-5 h-5" />}
+            moreLink="/terbaru"
+            moreLabel="All"
           >
             {terbaru?.data?.map((game) => (
               <div key={game.slug} className="flex-none w-[100px] sm:w-[120px] snap-start">

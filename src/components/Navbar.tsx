@@ -75,9 +75,6 @@ export default function Navbar() {
         ) : (
           /* Desktop Links (Hidden when searching) */
           <div className="hidden md:flex items-center gap-8 text-sm font-semibold ml-auto mr-4">
-            <Link href="/" className="text-foreground hover:text-primary transition-colors flex items-center gap-1.5">
-              <Compass className="w-4 h-4 text-muted-foreground" /> Jelajahi
-            </Link>
             <Link href="/#trending" className="text-muted-foreground hover:text-primary transition-colors flex items-center gap-1.5">
               <Flame className="w-4 h-4 text-muted-foreground" /> Trending
             </Link>
@@ -115,13 +112,6 @@ export default function Navbar() {
       {isMobileMenuOpen && (
         <div className="md:hidden border-b border-border/50 bg-background/95 backdrop-blur-lg px-4 py-4 space-y-3 animate-in slide-in-from-top-4 duration-200">
           <div className="flex flex-col gap-2 font-semibold text-sm">
-            <Link 
-              href="/" 
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="px-3 py-2.5 rounded-xl hover:bg-muted transition-colors flex items-center gap-2"
-            >
-              <Compass className="w-4 h-4 text-primary" /> Jelajahi
-            </Link>
             <Link 
               href="/#trending" 
               onClick={() => setIsMobileMenuOpen(false)}
