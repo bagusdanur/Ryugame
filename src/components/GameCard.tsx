@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { GameCardItem } from "@/services/api";
 import { Star } from "lucide-react";
+import { getProxyUrl } from "@/utils/imageProxy";
 
 export default function GameCard({ game }: { game: GameCardItem }) {
-  const imageSrc = game.thumbnail || game.image || "/placeholder.jpg";
+  const imageSrc = getProxyUrl(game.thumbnail || game.image);
   const endpoint = game.endpoint || `/game/detail/${game.slug}`;
 
   return (

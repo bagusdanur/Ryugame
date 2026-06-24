@@ -5,6 +5,7 @@ import Link from "next/link";
 import { GameCardItem } from "@/services/api";
 import { Star, ChevronLeft, ChevronRight, Download } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { getProxyUrl } from "@/utils/imageProxy";
 
 export default function HeroCarousel({ games }: { games: GameCardItem[] }) {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -21,7 +22,7 @@ export default function HeroCarousel({ games }: { games: GameCardItem[] }) {
   if (featuredGames.length === 0) return null;
 
   const currentGame = featuredGames[currentIndex];
-  const imageSrc = currentGame.image || currentGame.thumbnail || "/placeholder.jpg";
+  const imageSrc = getProxyUrl(currentGame.image || currentGame.thumbnail);
 
   const handlePrev = () => {
     setCurrentIndex((prev) => (prev === 0 ? featuredGames.length - 1 : prev - 1));

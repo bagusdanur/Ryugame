@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import { Star, Download, ShieldCheck, Gamepad2, Info, Calendar, Terminal, CheckCircle2, AlertCircle } from "lucide-react";
+import { getProxyUrl } from "@/utils/imageProxy";
 
 interface GameDetailResponse {
   success: boolean;
@@ -109,7 +110,7 @@ export default async function GameDetailPage({ params }: Props) {
         <div className="relative w-28 h-28 md:w-36 md:h-36 shrink-0 overflow-hidden bg-muted rounded-3xl border border-border/40 shadow-xl mx-auto md:mx-0">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={game.thumbnail}
+            src={getProxyUrl(game.thumbnail)}
             alt={game.title}
             className="object-cover w-full h-full"
           />
@@ -180,7 +181,7 @@ export default async function GameDetailPage({ params }: Props) {
           <div className="space-y-4">
             {/* Android Dropdown */}
             {hasAndroid && (
-              <details className="group border border-border/40 rounded-2xl bg-muted/20 overflow-hidden" open>
+              <details className="group border border-border/40 rounded-2xl bg-muted/20 overflow-hidden">
                 <summary className="flex items-center justify-between p-4 font-bold text-sm text-foreground cursor-pointer select-none hover:bg-muted/40 list-none [&::-webkit-details-marker]:hidden">
                   <span className="flex items-center gap-2.5">
                     <ShieldCheck className="w-5 h-5 text-primary" />
@@ -211,7 +212,7 @@ export default async function GameDetailPage({ params }: Props) {
 
             {/* Windows Dropdown */}
             {hasWin && (
-              <details className="group border border-border/40 rounded-2xl bg-muted/20 overflow-hidden" open>
+              <details className="group border border-border/40 rounded-2xl bg-muted/20 overflow-hidden">
                 <summary className="flex items-center justify-between p-4 font-bold text-sm text-foreground cursor-pointer select-none hover:bg-muted/40 list-none [&::-webkit-details-marker]:hidden">
                   <span className="flex items-center gap-2.5">
                     <Gamepad2 className="w-5 h-5 text-white" />
@@ -284,7 +285,7 @@ export default async function GameDetailPage({ params }: Props) {
               <div key={i} className="relative flex-none w-[280px] sm:w-[480px] aspect-[16/9] rounded-2xl overflow-hidden border border-border/30 snap-start bg-muted shadow-sm hover:border-primary/30 transition-all duration-300">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src={img}
+                  src={getProxyUrl(img)}
                   alt={`Screenshot ${i + 1}`}
                   className="object-cover w-full h-full"
                   loading="lazy"
