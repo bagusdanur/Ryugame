@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Search, Gamepad2, Menu, X, Flame, Compass, Award } from "lucide-react";
+import { Search, Gamepad2, Menu, X, Flame, Award } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
