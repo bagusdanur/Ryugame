@@ -54,6 +54,7 @@ export default function RootLayout({
     <html lang="id" className="dark">
       <head>
         <meta name="monetag" content="dfd1c42cbf4882b4e4cc05028aafae6e"></meta>
+        <script src="https://quge5.com/88/tag.min.js" data-zone="253091" async data-cfasync="false"></script>
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-background text-foreground flex flex-col selection:bg-primary/30 relative`}
