@@ -18,7 +18,7 @@ export default function GameCard({ game }: { game: GameCardItem }) {
         <img
           src={imageSrc}
           alt={game.title}
-          className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500 ease-out"
+          className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500 ease-out game-thumbnail"
           loading="lazy"
         />
       </div>

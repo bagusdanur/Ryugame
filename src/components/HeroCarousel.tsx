@@ -50,7 +50,7 @@ export default function HeroCarousel({ games }: { games: GameCardItem[] }) {
             <img
               src={imageSrc}
               alt={currentGame.title}
-              className="absolute inset-0 w-full h-full object-cover opacity-35 scale-105 blur-[8px]"
+              className="absolute inset-0 w-full h-full object-cover opacity-35 scale-105 blur-[8px] game-thumbnail"
             />
           </div>
           {/* Real overlay image split on desktop */}
@@ -63,7 +63,7 @@ export default function HeroCarousel({ games }: { games: GameCardItem[] }) {
             <img
               src={imageSrc}
               alt={currentGame.title}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover game-thumbnail"
             />
           </div>
         </motion.div>

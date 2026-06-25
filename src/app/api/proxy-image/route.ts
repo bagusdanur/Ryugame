@@ -9,7 +9,11 @@ export async function GET(request: NextRequest) {
   }
 
   try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 4000);
+
     const res = await fetch(imageUrl, {
+      signal: controller.signal,
       headers: {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
         "Referer": new URL(imageUrl).origin,
@@ -17,8 +21,10 @@ export async function GET(request: NextRequest) {
       },
     });
 
+    clearTimeout(timeoutId);
+
     if (!res.ok) {
-      return new NextResponse(`Failed to fetch image: ${res.statusText}`, { status: res.status });
+      return NextResponse.redirect(imageUrl, 302);
     }
 
     const contentType = res.headers.get("content-type") || "image/jpeg";
@@ -32,6 +38,6 @@ export async function GET(request: NextRequest) {
     });
   } catch (error) {
     console.error("Proxy image error for URL:", imageUrl, error);
-    return new NextResponse("Error fetching image", { status: 500 });
+    return NextResponse.redirect(imageUrl, 302);
   }
 }

@@ -51,10 +51,26 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="id" className="dark">
+    <html lang="id" className="dark" suppressHydrationWarning>
       <head>
         <meta name="monetag" content="dfd1c42cbf4882b4e4cc05028aafae6e"></meta>
-        <script src="https://quge5.com/88/tag.min.js" data-zone="253091" async data-cfasync="false"></script>
+        {process.env.NODE_ENV === 'production' && (
+          <script src="https://quge5.com/88/tag.min.js" data-zone="253091" async data-cfasync="false"></script>
+        )}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var saved = localStorage.getItem('thumbnail-blur');
+                  if (saved !== 'false') {
+                    document.documentElement.classList.add('blur-thumbnails');
+                  }
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-background text-foreground flex flex-col selection:bg-primary/30 relative`}

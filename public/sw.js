@@ -40,6 +40,16 @@ self.addEventListener('fetch', (event) => {
   // Avoid caching chrome-extension:// or other non-http schemes
   if (!event.request.url.startsWith(self.location.origin)) return;
 
+  // IMPORTANT: Ignore Next.js internal requests, API routes, and Hot Module Replacement (HMR) 
+  // to prevent infinite refresh loops in development!
+  if (
+    event.request.url.includes('/_next/') ||
+    event.request.url.includes('/api/') ||
+    event.request.url.includes('webpack-hmr')
+  ) {
+    return;
+  }
+
   event.respondWith(
     caches.open(CACHE_NAME).then((cache) => {
       return cache.match(event.request).then((cachedResponse) => {

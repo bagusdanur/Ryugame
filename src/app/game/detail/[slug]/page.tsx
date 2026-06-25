@@ -112,7 +112,7 @@ export default async function GameDetailPage({ params }: Props) {
           <img
             src={getProxyUrl(game.thumbnail)}
             alt={game.title}
-            className="object-cover w-full h-full"
+            className="object-cover w-full h-full game-thumbnail"
           />
         </div>
 
@@ -287,7 +287,7 @@ export default async function GameDetailPage({ params }: Props) {
                 <img
                   src={getProxyUrl(img)}
                   alt={`Screenshot ${i + 1}`}
-                  className="object-cover w-full h-full"
+                  className="object-cover w-full h-full game-thumbnail"
                   loading="lazy"
                 />
               </div>

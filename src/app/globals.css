@@ -64,4 +64,12 @@ body {
   scrollbar-width: none;  /* Firefox */
 }
 
+/* Thumbnail Blur Feature */
+html.blur-thumbnails .game-thumbnail {
+  filter: blur(10px) saturate(1.2);
+  transition: filter 0.3s ease;
+}
 
+html.blur-thumbnails .game-thumbnail:hover {
+  filter: blur(0px) saturate(1);
+}

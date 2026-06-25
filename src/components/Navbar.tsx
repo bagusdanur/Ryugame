@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Search, Gamepad2, Menu, X, Flame, Award } from "lucide-react";
+import { Search, Gamepad2, Menu, X, Flame, Award, Eye, EyeOff } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
@@ -9,8 +9,32 @@ export default function Navbar() {
   const [query, setQuery] = useState("");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isBlurActive, setIsBlurActive] = useState(true);
   const router = useRouter();
   const searchInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    // Check localStorage for blur preference
+    try {
+      const saved = localStorage.getItem('thumbnail-blur');
+      if (saved === 'false') {
+        setIsBlurActive(false);
+      }
+    } catch (e) {}
+  }, []);
+
+  const toggleBlur = () => {
+    const newState = !isBlurActive;
+    setIsBlurActive(newState);
+    try {
+      localStorage.setItem('thumbnail-blur', newState.toString());
+      if (newState) {
+        document.documentElement.classList.add('blur-thumbnails');
+      } else {
+        document.documentElement.classList.remove('blur-thumbnails');
+      }
+    } catch (e) {}
+  };
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -86,6 +110,16 @@ export default function Navbar() {
 
         {/* Right Actions */}
         <div className="flex items-center gap-3">
+          {/* Blur Toggle Button */}
+          <button
+            onClick={toggleBlur}
+            className="p-2.5 rounded-full hover:bg-muted/80 border border-border/40 transition-colors text-foreground"
+            title={isBlurActive ? "Matikan Blur Thumbnail" : "Aktifkan Blur Thumbnail"}
+            aria-label="Toggle Thumbnail Blur"
+          >
+            {isBlurActive ? <EyeOff className="w-5 h-5 text-primary" /> : <Eye className="w-5 h-5" />}
+          </button>
+
           {/* Search trigger icon (hidden when search is already active) */}
           {!isSearchOpen && (
             <button
