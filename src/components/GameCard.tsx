@@ -1,16 +1,19 @@
 import Link from "next/link";
 import { GameCardItem } from "@/services/api";
-import { Star } from "lucide-react";
+import { Star, Bookmark } from "lucide-react";
 import { getProxyUrl } from "@/utils/imageProxy";
+import { useBookmarks } from "@/context/BookmarksContext";
 
 export default function GameCard({ game }: { game: GameCardItem }) {
   const imageSrc = getProxyUrl(game.thumbnail || game.image);
   const endpoint = game.endpoint || `/game/detail/${game.slug}`;
+  const { isBookmarked, toggleBookmark } = useBookmarks();
+  const isSaved = isBookmarked(game.slug);
 
   return (
     <Link 
       href={endpoint} 
-      className="group flex flex-col gap-2 w-[100px] sm:w-[120px] shrink-0 active:scale-95 transition-all duration-200"
+      className="group flex flex-col gap-2 w-[100px] sm:w-[120px] shrink-0 active:scale-95 transition-all duration-200 relative"
     >
       {/* 1:1 Squircle App Icon Container */}
       <div className="relative aspect-square w-full overflow-hidden bg-muted rounded-2xl border border-border/30 shadow-md">
@@ -21,6 +24,20 @@ export default function GameCard({ game }: { game: GameCardItem }) {
           className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500 ease-out game-thumbnail"
           loading="lazy"
         />
+        
+        {/* Bookmark Overlay Button */}
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            toggleBookmark(game);
+          }}
+          className="absolute top-1.5 right-1.5 p-1.5 rounded-lg bg-black/60 hover:bg-black/85 backdrop-blur-md text-foreground transition-all duration-200 z-10 hover:scale-105 active:scale-95 cursor-pointer shadow-md"
+          title={isSaved ? "Saved" : "Save"}
+          aria-label={isSaved ? "Remove Bookmark" : "Add Bookmark"}
+        >
+          <Bookmark className={`w-3.5 h-3.5 transition-all ${isSaved ? "fill-primary text-primary" : "text-white/80 hover:text-white"}`} />
+        </button>
       </div>
 
       {/* App details underneath */}

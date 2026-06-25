@@ -10,6 +10,7 @@ export const translations = {
     "nav.blur_on": "Disable Thumbnail Blur",
     "nav.blur_off": "Enable Thumbnail Blur",
     "nav.search_aria": "Search Game",
+    "nav.bookmarks": "Saved Games",
 
     // Home page
     "home.trending_title": "Trending Now",
@@ -72,6 +73,15 @@ export const translations = {
     "meta.description": "The best place to download Android (APK) & PC games, latest, free and premium, easily, quickly, and safely.",
     "meta.latest_title": "Latest Games - Download Free Android & PC Games",
     "meta.latest_description": "List of the newest Android and PC games recently added, updated daily.",
+
+    // Bookmarks / Saved Page
+    "saved.title": "Saved Games",
+    "saved.subtitle": "Your personally saved Android & PC games",
+    "saved.empty": "Your library is empty.",
+    "saved.empty_desc": "Start bookmarking your favorite games to see them here!",
+    "saved.browse_btn": "Browse Games",
+    "detail.bookmark_add": "Add Bookmark",
+    "detail.bookmark_remove": "Saved",
   },
   id: {
     // Navbar
@@ -82,6 +92,7 @@ export const translations = {
     "nav.blur_on": "Matikan Blur Thumbnail",
     "nav.blur_off": "Aktifkan Blur Thumbnail",
     "nav.search_aria": "Cari Game",
+    "nav.bookmarks": "Game Tersimpan",
 
     // Home page
     "home.trending_title": "Sedang Populer",
@@ -144,6 +155,15 @@ export const translations = {
     "meta.description": "Tempat download game Android (APK) & PC terbaik, terbaru, gratis dan premium dengan mudah, cepat, dan aman.",
     "meta.latest_title": "Game Terbaru - Unduh Game Android & PC Gratis",
     "meta.latest_description": "Daftar game Android dan PC terbaru yang baru saja ditambahkan, selalu diperbarui setiap hari.",
+
+    // Bookmarks / Saved Page
+    "saved.title": "Game Tersimpan",
+    "saved.subtitle": "Daftar game Android & PC favorit yang Anda simpan",
+    "saved.empty": "Perpustakaan Anda kosong.",
+    "saved.empty_desc": "Mulai simpan game favorit Anda untuk melihatnya di sini!",
+    "saved.browse_btn": "Jelajahi Game",
+    "detail.bookmark_add": "Simpan Game",
+    "detail.bookmark_remove": "Tersimpan",
   },
   ja: {
     // Navbar
@@ -154,6 +174,7 @@ export const translations = {
     "nav.blur_on": "サムネイルのぼかしを無効化",
     "nav.blur_off": "サムネイルのぼかしを有効化",
     "nav.search_aria": "ゲームを検索",
+    "nav.bookmarks": "保存されたゲーム",
 
     // Home page
     "home.trending_title": "トレンド",
@@ -216,5 +237,14 @@ export const translations = {
     "meta.description": "Android（APK）およびPCゲームを、簡単に、素早く、安全にダウンロードできる最高のサイト。",
     "meta.latest_title": "最新ゲーム - 無料Android＆PCゲームダウンロード",
     "meta.latest_description": "毎日更新される、最近追加された最新のAndroidおよびPCゲームの一覧。",
+
+    // Bookmarks / Saved Page
+    "saved.title": "保存されたゲーム",
+    "saved.subtitle": "保存したお気に入りのAndroid＆PCゲーム",
+    "saved.empty": "ライブラリは空です。",
+    "saved.empty_desc": "お気に入りのゲームを保存して、ここに表示しましょう！",
+    "saved.browse_btn": "ゲームを探す",
+    "detail.bookmark_add": "ブックマークに追加",
+    "detail.bookmark_remove": "保存済み",
   },
 };

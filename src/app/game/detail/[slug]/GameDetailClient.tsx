@@ -1,10 +1,11 @@
 "use client";
 
 import React from "react";
-import { Star, Download, ShieldCheck, Gamepad2, Info, Calendar, Terminal, CheckCircle2, AlertCircle } from "lucide-react";
+import { Star, Download, ShieldCheck, Gamepad2, Info, Calendar, Terminal, CheckCircle2, AlertCircle, Bookmark } from "lucide-react";
 import { getProxyUrl } from "@/utils/imageProxy";
 import { getSafelinkuUrl } from "@/utils/safelinku";
 import { useLanguage } from "@/i18n/LanguageContext";
+import { useBookmarks } from "@/context/BookmarksContext";
 
 interface GameDetailProps {
   game: {
@@ -33,6 +34,15 @@ interface GameDetailProps {
 
 export default function GameDetailClient({ game }: GameDetailProps) {
   const { language, t } = useLanguage();
+  const { isBookmarked, toggleBookmark } = useBookmarks();
+  const isSaved = isBookmarked(game.slug);
+
+  const gameCardItem = {
+    title: game.title,
+    slug: game.slug,
+    thumbnail: game.thumbnail,
+    rating: game.rating ? parseFloat(game.rating) : undefined,
+  };
 
   const hasAndroid = game.downloads.android && game.downloads.android.length > 0;
   const hasWin = game.downloads.win && game.downloads.win.length > 0;
@@ -94,7 +104,14 @@ export default function GameDetailClient({ game }: GameDetailProps) {
           </div>
 
           {/* Big Action GET Button (Desktop Only) */}
-          <div className="hidden md:block shrink-0">
+          <div className="hidden md:flex items-center gap-3 shrink-0">
+            <button
+              onClick={() => toggleBookmark(gameCardItem)}
+              className="flex items-center justify-center p-4 rounded-full border border-border/40 hover:bg-muted/80 transition-all hover:scale-105 active:scale-95 text-foreground cursor-pointer"
+              title={isSaved ? t("detail.bookmark_remove") : t("detail.bookmark_add")}
+            >
+              <Bookmark className={`w-5 h-5 ${isSaved ? "fill-primary text-primary" : "text-foreground"}`} />
+            </button>
             <a
               href="#downloads"
               className="flex items-center justify-center gap-2 bg-primary text-primary-foreground font-black px-8 py-4 rounded-full shadow-lg shadow-primary/20 hover:scale-105 active:scale-95 transition-all tracking-wider text-base cursor-pointer"
@@ -131,10 +148,17 @@ export default function GameDetailClient({ game }: GameDetailProps) {
         </div>
 
         {/* Big Action GET Button (Mobile/Tablet Only) */}
-        <div className="md:hidden w-full pt-1">
+        <div className="md:hidden w-full pt-1 flex items-center gap-3">
+          <button
+            onClick={() => toggleBookmark(gameCardItem)}
+            className="flex items-center justify-center p-3.5 rounded-2xl border border-border/40 hover:bg-muted/80 transition-all active:scale-95 text-foreground cursor-pointer"
+            aria-label={isSaved ? "Remove Bookmark" : "Add Bookmark"}
+          >
+            <Bookmark className={`w-5 h-5 ${isSaved ? "fill-primary text-primary" : "text-foreground"}`} />
+          </button>
           <a
             href="#downloads"
-            className="flex items-center justify-center gap-2 w-full bg-primary text-primary-foreground font-black px-6 py-3.5 rounded-2xl shadow-md shadow-primary/10 hover:scale-102 active:scale-98 transition-all tracking-wide text-sm cursor-pointer"
+            className="flex-1 flex items-center justify-center gap-2 bg-primary text-primary-foreground font-black px-6 py-3.5 rounded-2xl shadow-md shadow-primary/10 hover:scale-102 active:scale-98 transition-all tracking-wide text-sm cursor-pointer"
           >
             <Download className="w-4 h-4" /> GET DOWNLOAD
           </a>

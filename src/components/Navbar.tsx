@@ -1,10 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { Search, Gamepad2, Menu, X, Flame, Award, Eye, EyeOff } from "lucide-react";
+import { Search, Gamepad2, Menu, X, Flame, Award, Eye, EyeOff, Bookmark } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useLanguage } from "@/i18n/LanguageContext";
+import { useBookmarks } from "@/context/BookmarksContext";
 import LanguageSwitcher from "./LanguageSwitcher";
 
 export default function Navbar() {
@@ -15,6 +16,7 @@ export default function Navbar() {
   const router = useRouter();
   const searchInputRef = useRef<HTMLInputElement>(null);
   const { t } = useLanguage();
+  const { bookmarks } = useBookmarks();
 
   useEffect(() => {
     // Check localStorage for blur preference
@@ -127,7 +129,7 @@ export default function Navbar() {
           >
             {isBlurActive ? <EyeOff className="w-5 h-5 text-primary" /> : <Eye className="w-5 h-5" />}
           </button>
-
+ 
           {/* Search trigger icon (hidden when search is already active) */}
           {!isSearchOpen && (
             <button
@@ -167,6 +169,20 @@ export default function Navbar() {
               className="px-3 py-2.5 rounded-xl hover:bg-muted transition-colors flex items-center gap-2"
             >
               <Award className="w-4 h-4 text-primary" /> {t("nav.latest")}
+            </Link>
+            <Link 
+              href="/saved" 
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="px-3 py-2.5 rounded-xl hover:bg-muted transition-colors flex items-center justify-between"
+            >
+              <span className="flex items-center gap-2">
+                <Bookmark className="w-4 h-4 text-primary" /> {t("nav.bookmarks")}
+              </span>
+              {bookmarks.length > 0 && (
+                <span className="bg-primary text-white text-[10px] font-black px-2 py-0.5 rounded-full">
+                  {bookmarks.length}
+                </span>
+              )}
             </Link>
           </div>
 
