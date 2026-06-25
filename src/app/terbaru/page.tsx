@@ -1,8 +1,8 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import GameCard from "@/components/GameCard";
-import { Award, ChevronLeft, ChevronRight } from "lucide-react";
+import { Award } from "lucide-react";
 import { ApiListResponse } from "@/services/api";
+import LoadMoreGames from "./LoadMoreGames";
 
 export const metadata: Metadata = {
   title: "Game Terbaru - Unduh Game Android & PC Gratis",
@@ -56,46 +56,13 @@ export default async function TerbaruPage({
         </div>
       </div>
 
-      {/* Grid */}
+      {/* Grid with Load More */}
       {games.length === 0 ? (
         <div className="text-center py-12">
           <p className="text-muted-foreground">Tidak ada game terbaru yang ditemukan.</p>
         </div>
       ) : (
-        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-x-4 gap-y-6">
-          {games.map((game) => (
-            <GameCard key={game.slug} game={game} />
-          ))}
-        </div>
-      )}
-
-      {/* Pagination */}
-      {totalPages > 1 && (
-        <div className="flex items-center justify-center gap-4 pt-6 border-t border-border/20">
-          <Link
-            href={`/terbaru?page=${Math.max(1, page - 1)}`}
-            className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-bold transition-all border border-border/50 ${
-              page <= 1
-                ? "opacity-50 pointer-events-none text-muted-foreground bg-muted/20"
-                : "bg-card text-foreground hover:bg-muted hover:border-primary/30"
-            }`}
-          >
-            <ChevronLeft className="w-4 h-4" /> Sebelumnya
-          </Link>
-          <span className="text-sm font-semibold text-muted-foreground">
-            Halaman <span className="text-white font-bold">{page}</span> dari <span className="text-white font-bold">{totalPages}</span>
-          </span>
-          <Link
-            href={`/terbaru?page=${Math.min(totalPages, page + 1)}`}
-            className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-bold transition-all border border-border/50 ${
-              page >= totalPages
-                ? "opacity-50 pointer-events-none text-muted-foreground bg-muted/20"
-                : "bg-card text-foreground hover:bg-muted hover:border-primary/30"
-            }`}
-          >
-            Selanjutnya <ChevronRight className="w-4 h-4" />
-          </Link>
-        </div>
+        <LoadMoreGames initialGames={games} initialTotalPages={totalPages} />
       )}
     </div>
   );

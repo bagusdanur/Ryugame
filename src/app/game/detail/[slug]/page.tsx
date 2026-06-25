@@ -101,8 +101,40 @@ export default async function GameDetailPage({ params }: Props) {
   const hasWin = game.downloads.win && game.downloads.win.length > 0;
   const hasOther = game.downloads.other && game.downloads.other.length > 0;
 
+  const cleanDescription = (game.description || game.description_en || "")
+    .replace(/<[^>]*>/g, "")
+    .slice(0, 160);
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": game.title,
+    "operatingSystem": game.platforms?.join(", ") || "Android, Windows",
+    "applicationCategory": "GameApplication",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": game.rating || "4.5",
+      "ratingCount": game.downloads_count ? game.downloads_count.replace(/\\D/g, '') || "100" : "100"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "image": game.thumbnail,
+    "description": cleanDescription,
+    "author": {
+      "@type": "Organization",
+      "name": game.developer || "Unknown Developer"
+    }
+  };
+
   return (
     <article className="space-y-10 sm:space-y-12">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {/* App Store Style Header */}
       <header className="flex flex-col md:flex-row gap-6 md:gap-8 items-start md:items-center bg-card/30 border border-border/20 p-6 md:p-8 rounded-3xl backdrop-blur-md">
         
