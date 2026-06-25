@@ -212,6 +212,33 @@ export default async function GameDetailPage({ params }: Props) {
           </div>
         ) : (
           <div className="space-y-4">
+            {/* Tutorial Video Dropdown */}
+            <details className="group border border-primary/30 rounded-2xl bg-primary/5 overflow-hidden mb-2 shadow-sm">
+              <summary className="flex items-center justify-between p-4 font-bold text-sm text-primary cursor-pointer select-none hover:bg-primary/10 list-none [&::-webkit-details-marker]:hidden">
+                <span className="flex items-center gap-2.5">
+                  <Info className="w-5 h-5" />
+                  Cara Melewati Shortlink (Wajib Tonton)
+                </span>
+                <span className="transition-transform duration-200 group-open:rotate-180 text-primary/70 text-xs">
+                  ▼
+                </span>
+              </summary>
+              <div className="p-4 sm:p-6 border-t border-primary/20 bg-card/60">
+                <div className="relative w-full aspect-video rounded-xl overflow-hidden border border-border/50 shadow-inner bg-black">
+                  <iframe 
+                    className="absolute top-0 left-0 w-full h-full"
+                    src="https://www.youtube.com/embed/ng1vEKToVkc?si=IJwAlJ_g41gzcIG6" 
+                    title="YouTube video player" 
+                    frameBorder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    referrerPolicy="strict-origin-when-cross-origin" 
+                    allowFullScreen
+                  ></iframe>
+                </div>
+                <p className="text-xs text-muted-foreground mt-3 text-center">Tonton video singkat di atas jika kamu bingung cara mendownload file dari Safelinku.</p>
+              </div>
+            </details>
+
             {/* Android Dropdown */}
             {hasAndroid && (
               <details className="group border border-border/40 rounded-2xl bg-muted/20 overflow-hidden">
