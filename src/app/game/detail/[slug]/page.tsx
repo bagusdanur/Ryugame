@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { Star, Download, ShieldCheck, Gamepad2, Info, Calendar, Terminal, CheckCircle2, AlertCircle } from "lucide-react";
 import { getProxyUrl } from "@/utils/imageProxy";
+import { getSafelinkuUrl } from "@/utils/safelinku";
 
 interface GameDetailResponse {
   success: boolean;
@@ -227,7 +228,7 @@ export default async function GameDetailPage({ params }: Props) {
                   {game.downloads.android.map((dl, i) => (
                     <a
                       key={i}
-                      href={dl.url}
+                      href={getSafelinkuUrl(dl.url)}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center justify-between bg-primary/10 hover:bg-primary text-primary hover:text-primary-foreground p-3 rounded-xl transition-all duration-200 font-bold text-xs border border-primary/20 shadow-sm active:scale-98 group/item"
@@ -258,7 +259,7 @@ export default async function GameDetailPage({ params }: Props) {
                   {game.downloads.win.map((dl, i) => (
                     <a
                       key={i}
-                      href={dl.url}
+                      href={getSafelinkuUrl(dl.url)}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center justify-between bg-slate-800 hover:bg-white hover:text-black text-white p-3 rounded-xl transition-all duration-200 font-bold text-xs border border-slate-700/50 shadow-sm active:scale-98 group/item"
@@ -291,7 +292,7 @@ export default async function GameDetailPage({ params }: Props) {
                   {game.downloads.other.map((dl, i) => (
                     <a
                       key={i}
-                      href={dl.url}
+                      href={getSafelinkuUrl(dl.url)}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center justify-between bg-muted hover:bg-slate-700 text-slate-300 p-3.5 rounded-2xl transition-all duration-300 font-semibold text-sm border border-border/50 shadow-sm active:scale-98"
