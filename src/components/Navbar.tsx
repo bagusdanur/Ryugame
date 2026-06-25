@@ -118,10 +118,10 @@ export default function Navbar() {
             <LanguageSwitcher />
           </div>
 
-          {/* Blur Toggle Button (Desktop Only) */}
+          {/* Blur Toggle Button */}
           <button
             onClick={toggleBlur}
-            className="hidden md:flex p-2.5 rounded-full hover:bg-muted/80 border border-border/40 transition-colors text-foreground"
+            className="flex p-2.5 rounded-full hover:bg-muted/80 border border-border/40 transition-colors text-foreground cursor-pointer"
             title={isBlurActive ? t("nav.blur_on") : t("nav.blur_off")}
             aria-label="Toggle Thumbnail Blur"
           >
