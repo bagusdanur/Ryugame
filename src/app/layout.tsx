@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import { LanguageProvider } from "@/i18n/LanguageContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,11 +17,11 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "RyuGame - Download Game Android & PC Premium Gratis",
+    default: "RyuGame - Download Free Premium Android & PC Games",
     template: "%s | RyuGame"
   },
-  description: "Tempat download game Android (APK) & PC terbaik, terbaru, gratis dan premium dengan mudah, cepat, dan aman.",
-  keywords: ["download game", "game gratis", "game premium", "game android apk", "game pc", "ryugame", "download game pc"],
+  description: "The best place to download Android (APK) & PC games, latest, free and premium, easily, quickly, and safely.",
+  keywords: ["download games", "free games", "premium games", "android apk games", "pc games", "ryugame", "download pc games"],
   authors: [{ name: "RyuGame Team" }],
   icons: {
     icon: "/icon.svg",
@@ -27,17 +29,17 @@ export const metadata: Metadata = {
   },
   manifest: "/manifest.json",
   openGraph: {
-    title: "RyuGame - Download Game Android & PC Premium Gratis",
-    description: "Tempat download game Android (APK) & PC terbaik, terbaru, gratis dan premium dengan mudah, cepat, dan aman.",
+    title: "RyuGame - Download Free Premium Android & PC Games",
+    description: "The best place to download Android (APK) & PC games, latest, free and premium, easily, quickly, and safely.",
     url: "https://ryugame.web.id",
     siteName: "RyuGame",
-    locale: "id_ID",
+    locale: "en_US",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "RyuGame - Download Game Android & PC Premium Gratis",
-    description: "Tempat download game Android (APK) & PC terbaik, terbaru, gratis dan premium.",
+    title: "RyuGame - Download Free Premium Android & PC Games",
+    description: "The best place to download Android (APK) & PC games, latest, free and premium.",
   },
   robots: {
     index: true,
@@ -51,7 +53,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="id" className="dark" suppressHydrationWarning>
+    <html lang="en" className="dark" suppressHydrationWarning>
       <head>
         <meta name="monetag" content="dfd1c42cbf4882b4e4cc05028aafae6e"></meta>
         {process.env.NODE_ENV === 'production' && (
@@ -75,16 +77,13 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-background text-foreground flex flex-col selection:bg-primary/30 relative`}
       >
-        <Navbar />
-        <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10">
-          {children}
-        </main>
-
-        <footer className="border-t border-border/50 py-8 mt-12 bg-card/20 backdrop-blur-md">
-          <div className="max-w-7xl mx-auto px-4 text-center text-sm text-muted-foreground">
-            <p>&copy; {new Date().getFullYear()} RyuGame. Dibuat dengan cinta untuk para gamer.</p>
-          </div>
-        </footer>
+        <LanguageProvider>
+          <Navbar />
+          <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10">
+            {children}
+          </main>
+          <Footer />
+        </LanguageProvider>
 
         <script
           dangerouslySetInnerHTML={{

@@ -4,6 +4,8 @@ import Link from "next/link";
 import { Search, Gamepad2, Menu, X, Flame, Award, Eye, EyeOff } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useLanguage } from "@/i18n/LanguageContext";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 export default function Navbar() {
   const [query, setQuery] = useState("");
@@ -12,6 +14,7 @@ export default function Navbar() {
   const [isBlurActive, setIsBlurActive] = useState(true);
   const router = useRouter();
   const searchInputRef = useRef<HTMLInputElement>(null);
+  const { t } = useLanguage();
 
   useEffect(() => {
     // Check localStorage for blur preference
@@ -76,7 +79,7 @@ export default function Navbar() {
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="Cari game favorit Anda..."
+                placeholder={t("nav.search_placeholder")}
                 className="block w-full pl-10 pr-10 py-2 border border-border/50 bg-muted/50 focus:bg-card rounded-full text-sm transition-all focus:border-primary/50 focus:ring-4 focus:ring-primary/10 focus:outline-none"
               />
               {query && (
@@ -93,28 +96,33 @@ export default function Navbar() {
               onClick={() => setIsSearchOpen(false)}
               className="text-sm font-semibold text-muted-foreground hover:text-white px-2 py-1 transition-colors shrink-0"
             >
-              Batal
+              {t("nav.cancel")}
             </button>
           </div>
         ) : (
           /* Desktop Links (Hidden when searching) */
           <div className="hidden md:flex items-center gap-8 text-sm font-semibold ml-auto mr-4">
             <Link href="/#trending" className="text-muted-foreground hover:text-primary transition-colors flex items-center gap-1.5">
-              <Flame className="w-4 h-4 text-muted-foreground" /> Trending
+              <Flame className="w-4 h-4 text-muted-foreground" /> {t("nav.trending")}
             </Link>
             <Link href="/terbaru" className="text-muted-foreground hover:text-primary transition-colors flex items-center gap-1.5">
-              <Award className="w-4 h-4 text-muted-foreground" /> Terbaru
+              <Award className="w-4 h-4 text-muted-foreground" /> {t("nav.latest")}
             </Link>
           </div>
         )}
 
         {/* Right Actions */}
         <div className="flex items-center gap-2 sm:gap-3">
-          {/* Blur Toggle Button */}
+          {/* Language Switcher (Desktop Only) */}
+          <div className="hidden md:block">
+            <LanguageSwitcher />
+          </div>
+
+          {/* Blur Toggle Button (Desktop Only) */}
           <button
             onClick={toggleBlur}
-            className="p-2.5 rounded-full hover:bg-muted/80 border border-border/40 transition-colors text-foreground"
-            title={isBlurActive ? "Matikan Blur Thumbnail" : "Aktifkan Blur Thumbnail"}
+            className="hidden md:flex p-2.5 rounded-full hover:bg-muted/80 border border-border/40 transition-colors text-foreground"
+            title={isBlurActive ? t("nav.blur_on") : t("nav.blur_off")}
             aria-label="Toggle Thumbnail Blur"
           >
             {isBlurActive ? <EyeOff className="w-5 h-5 text-primary" /> : <Eye className="w-5 h-5" />}
@@ -125,7 +133,7 @@ export default function Navbar() {
             <button
               onClick={() => setIsSearchOpen(true)}
               className="p-2.5 rounded-full hover:bg-muted/80 border border-border/40 transition-colors text-foreground"
-              aria-label="Cari Game"
+              aria-label={t("nav.search_aria")}
             >
               <Search className="w-5 h-5" />
             </button>
@@ -144,22 +152,50 @@ export default function Navbar() {
 
       {/* Mobile Drawer */}
       {isMobileMenuOpen && (
-        <div className="md:hidden border-b border-border/50 bg-background/95 backdrop-blur-lg px-4 py-4 space-y-3 animate-in slide-in-from-top-4 duration-200">
+        <div className="md:hidden border-b border-border/50 bg-background/95 backdrop-blur-lg px-4 py-5 space-y-4 animate-in slide-in-from-top-4 duration-200">
           <div className="flex flex-col gap-2 font-semibold text-sm">
             <Link 
               href="/#trending" 
               onClick={() => setIsMobileMenuOpen(false)}
               className="px-3 py-2.5 rounded-xl hover:bg-muted transition-colors flex items-center gap-2"
             >
-              <Flame className="w-4 h-4 text-orange-500" /> Trending
+              <Flame className="w-4 h-4 text-orange-500" /> {t("nav.trending")}
             </Link>
             <Link 
               href="/terbaru" 
               onClick={() => setIsMobileMenuOpen(false)}
               className="px-3 py-2.5 rounded-xl hover:bg-muted transition-colors flex items-center gap-2"
             >
-              <Award className="w-4 h-4 text-primary" /> Terbaru
+              <Award className="w-4 h-4 text-primary" /> {t("nav.latest")}
             </Link>
+          </div>
+
+          {/* Divider and settings */}
+          <div className="border-t border-border/30 pt-4 flex flex-col gap-3.5">
+            <div className="flex items-center justify-between px-3">
+              <span className="text-xs font-bold text-muted-foreground uppercase tracking-wider">Language</span>
+              <LanguageSwitcher />
+            </div>
+            <div className="flex items-center justify-between px-3">
+              <span className="text-xs font-bold text-muted-foreground uppercase tracking-wider">Thumbnail Blur</span>
+              <button
+                onClick={toggleBlur}
+                className="p-2 rounded-xl hover:bg-muted border border-border/40 transition-colors text-foreground flex items-center gap-2 text-sm font-semibold cursor-pointer"
+                aria-label="Toggle Thumbnail Blur"
+              >
+                {isBlurActive ? (
+                  <>
+                    <EyeOff className="w-4 h-4 text-primary" />
+                    <span className="text-xs text-primary">{t("nav.blur_on").split(" ")[0]}</span>
+                  </>
+                ) : (
+                  <>
+                    <Eye className="w-4 h-4" />
+                    <span className="text-xs text-muted-foreground">{t("nav.blur_off").split(" ")[0]}</span>
+                  </>
+                )}
+              </button>
+            </div>
           </div>
         </div>
       )}

@@ -6,10 +6,12 @@ import GameCard from "@/components/GameCard";
 import HeroCarousel from "@/components/HeroCarousel";
 import HorizontalScrollList from "@/components/HorizontalScrollList";
 import { Flame, Clock, Award } from "lucide-react";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 export default function Home() {
   const { data: trending, isLoading: isLoadingTrending } = useSWR<ApiListResponse>("/game/trending", fetcher);
   const { data: terbaru, isLoading: isLoadingTerbaru } = useSWR<ApiListResponse>("/game/terbaru?page=1", fetcher);
+  const { t } = useLanguage();
 
   return (
     <div className="space-y-12 sm:space-y-16">
@@ -36,8 +38,8 @@ export default function Home() {
           </div>
         ) : (
           <HorizontalScrollList
-            title="Sedang Populer"
-            subtitle="Game yang paling banyak dimainkan minggu ini"
+            title={t("home.trending_title")}
+            subtitle={t("home.trending_subtitle")}
             icon={<Flame className="w-5 h-5" />}
           >
             {trending?.data?.map((game) => (
@@ -62,8 +64,8 @@ export default function Home() {
           </div>
         ) : (
           <HorizontalScrollList
-            title="Baru Dirilis"
-            subtitle="Game terbaru yang siap Anda mainkan"
+            title={t("home.latest_title")}
+            subtitle={t("home.latest_subtitle")}
             icon={<Clock className="w-5 h-5" />}
             moreLink="/terbaru"
             moreLabel="All"
@@ -83,11 +85,11 @@ export default function Home() {
         <div className="absolute right-0 top-0 w-64 h-64 bg-primary/10 rounded-full blur-[80px] pointer-events-none -z-10" />
         <div className="max-w-2xl space-y-4">
           <span className="text-xs font-bold text-primary uppercase tracking-widest flex items-center gap-1.5">
-            <Award className="w-4 h-4" /> Editor&apos;s Choice
+            <Award className="w-4 h-4" /> {t("home.editors_choice")}
           </span>
-          <h2 className="text-2xl md:text-3xl font-black text-white">Butuh Rekomendasi Game Terbaik?</h2>
+          <h2 className="text-2xl md:text-3xl font-black text-white">{t("home.editors_title")}</h2>
           <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
-            Semua game di RyuGame telah melewati proses scan keamanan, bebas dari malware, dan diuji kestabilannya pada platform Android serta PC. Pilih game favorit Anda dan mulailah berpetualang sekarang!
+            {t("home.editors_desc")}
           </p>
         </div>
       </section>

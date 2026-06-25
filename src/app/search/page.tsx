@@ -6,10 +6,12 @@ import { fetcher, ApiListResponse } from "@/services/api";
 import GameCard from "@/components/GameCard";
 import { Search, Compass } from "lucide-react";
 import { Suspense } from "react";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 function SearchResults() {
   const searchParams = useSearchParams();
   const q = searchParams.get("q") || "";
+  const { t } = useLanguage();
   
   const { data, isLoading } = useSWR<ApiListResponse>(
     q ? `/game/search?q=${encodeURIComponent(q)}` : null,
@@ -25,13 +27,13 @@ function SearchResults() {
           <Search className="w-6 h-6" />
         </div>
         <div>
-          <h1 className="text-2xl sm:text-3xl font-black text-white">Hasil Pencarian</h1>
+          <h1 className="text-2xl sm:text-3xl font-black text-white">{t("search.title")}</h1>
           {q ? (
             <p className="text-sm text-muted-foreground mt-0.5">
-              Menampilkan game untuk: <span className="font-bold text-primary">&quot;{q}&quot;</span>
+              {t("search.showing")}<span className="font-bold text-primary">&quot;{q}&quot;</span>
             </p>
           ) : (
-            <p className="text-sm text-muted-foreground mt-0.5">Cari koleksi game gratis & premium</p>
+            <p className="text-sm text-muted-foreground mt-0.5">{t("search.browse")}</p>
           )}
         </div>
       </div>
@@ -39,8 +41,8 @@ function SearchResults() {
       {!q ? (
         <div className="flex flex-col items-center justify-center min-h-[40vh] border border-dashed border-border/40 rounded-3xl bg-card/10 backdrop-blur-sm p-6 text-center space-y-3">
           <Compass className="w-10 h-10 text-muted-foreground opacity-50" />
-          <h2 className="text-lg font-bold text-white">Mulai Menjelajah</h2>
-          <p className="text-sm text-muted-foreground max-w-sm">Ketikkan judul game Android atau PC pada kotak pencarian di atas untuk mulai mencari.</p>
+          <h2 className="text-lg font-bold text-white">{t("search.explore_title")}</h2>
+          <p className="text-sm text-muted-foreground max-w-sm">{t("search.explore_desc")}</p>
         </div>
       ) : isLoading ? (
         <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-x-4 gap-y-6">
@@ -55,8 +57,8 @@ function SearchResults() {
       ) : !data?.success || data.data.length === 0 ? (
         <div className="flex flex-col items-center justify-center min-h-[40vh] bg-card/25 border border-border/20 rounded-3xl p-6 text-center space-y-3">
           <Search className="w-12 h-12 text-muted-foreground opacity-40" />
-          <h2 className="text-lg font-bold text-white">Game tidak ditemukan</h2>
-          <p className="text-sm text-muted-foreground max-w-xs">Maaf, kami tidak menemukan hasil untuk &quot;{q}&quot;. Coba cari kata kunci lain seperti &quot;RPG&quot; atau &quot;Action&quot;.</p>
+          <h2 className="text-lg font-bold text-white">{t("search.not_found")}</h2>
+          <p className="text-sm text-muted-foreground max-w-xs">{t("search.not_found_desc", { q })}</p>
         </div>
       ) : (
         <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-x-4 gap-y-6">

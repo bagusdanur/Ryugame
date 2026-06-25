@@ -5,6 +5,7 @@ import useSWR from "swr";
 import { fetcher, ApiListResponse, GameCardItem } from "@/services/api";
 import GameCard from "@/components/GameCard";
 import { ChevronDown, Loader2 } from "lucide-react";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 interface LoadMoreGamesProps {
   initialGames: GameCardItem[];
@@ -14,6 +15,7 @@ interface LoadMoreGamesProps {
 export default function LoadMoreGames({ initialGames, initialTotalPages }: LoadMoreGamesProps) {
   const [pages, setPages] = useState<GameCardItem[][]>([initialGames]);
   const [currentPage, setCurrentPage] = useState(1);
+  const { t } = useLanguage();
 
   // We only fetch when we increment currentPage past the loaded ones
   const { data, isLoading } = useSWR<ApiListResponse>(
@@ -55,11 +57,11 @@ export default function LoadMoreGames({ initialGames, initialTotalPages }: LoadM
           >
             {isLoading ? (
               <>
-                <Loader2 className="w-5 h-5 animate-spin" /> Memuat...
+                <Loader2 className="w-5 h-5 animate-spin" /> {t("latest.loading")}
               </>
             ) : (
               <>
-                Muat Lebih Banyak <ChevronDown className="w-5 h-5" />
+                {t("latest.load_more")} <ChevronDown className="w-5 h-5" />
               </>
             )}
           </button>

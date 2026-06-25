@@ -1,12 +1,10 @@
 import { Metadata } from "next";
-import Link from "next/link";
-import { Award } from "lucide-react";
 import { ApiListResponse } from "@/services/api";
-import LoadMoreGames from "./LoadMoreGames";
+import LatestPageClient, { LatestPageError } from "./LatestPageClient";
 
 export const metadata: Metadata = {
-  title: "Game Terbaru - Unduh Game Android & PC Gratis",
-  description: "Daftar game Android dan PC terbaru yang baru saja ditambahkan, selalu diperbarui setiap hari.",
+  title: "Latest Games - Download Free Android & PC Games",
+  description: "List of the newest Android and PC games recently added, always updated daily.",
 };
 
 async function getLatestGames(page: number): Promise<ApiListResponse | null> {
@@ -32,38 +30,11 @@ export default async function TerbaruPage({
   const data = await getLatestGames(page);
   
   if (!data || !data.success) {
-    return (
-      <div className="flex flex-col items-center justify-center min-h-[40vh] text-center">
-        <h1 className="text-2xl font-black">Gagal Memuat Data</h1>
-        <p className="text-muted-foreground mt-2">Silakan coba kembali dalam beberapa saat.</p>
-      </div>
-    );
+    return <LatestPageError />;
   }
 
   const games = data.data || [];
   const totalPages = data.totalPages || 1;
 
-  return (
-    <div className="space-y-8 animate-in fade-in duration-300">
-      {/* Header */}
-      <div className="flex items-center gap-3 bg-card/30 border border-border/20 p-6 rounded-3xl backdrop-blur-md">
-        <div className="bg-primary/10 p-3 rounded-2xl text-primary">
-          <Award className="w-6 h-6" />
-        </div>
-        <div>
-          <h1 className="text-2xl sm:text-3xl font-black text-white">Rilis Terbaru</h1>
-          <p className="text-sm text-muted-foreground mt-0.5">Daftar game Android & PC gratis terbaru yang baru ditambahkan</p>
-        </div>
-      </div>
-
-      {/* Grid with Load More */}
-      {games.length === 0 ? (
-        <div className="text-center py-12">
-          <p className="text-muted-foreground">Tidak ada game terbaru yang ditemukan.</p>
-        </div>
-      ) : (
-        <LoadMoreGames initialGames={games} initialTotalPages={totalPages} />
-      )}
-    </div>
-  );
+  return <LatestPageClient games={games} totalPages={totalPages} />;
 }

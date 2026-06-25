@@ -6,10 +6,12 @@ import { GameCardItem } from "@/services/api";
 import { Star, ChevronLeft, ChevronRight, Download } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { getProxyUrl } from "@/utils/imageProxy";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 export default function HeroCarousel({ games }: { games: GameCardItem[] }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const featuredGames = games.slice(0, 5); // Take top 5
+  const { t } = useLanguage();
 
   useEffect(() => {
     if (featuredGames.length === 0) return;
@@ -82,7 +84,7 @@ export default function HeroCarousel({ games }: { games: GameCardItem[] }) {
             className="space-y-4"
           >
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/20 backdrop-blur-md border border-primary/20 text-primary text-xs font-bold tracking-wider uppercase">
-              🔥 Trending Game
+              🔥 {t("hero.trending_badge")}
             </div>
 
             <h1 className="text-3xl md:text-5xl font-black text-white leading-tight line-clamp-2 drop-shadow-md">
@@ -104,7 +106,9 @@ export default function HeroCarousel({ games }: { games: GameCardItem[] }) {
             </div>
 
             <p className="text-sm text-slate-400 line-clamp-2 max-w-md">
-              Unduh game {currentGame.title} versi terbaru {currentGame.version ? `v${currentGame.version}` : ""} gratis untuk Android & PC dengan link aman, cepat, dan terverifikasi.
+              {currentGame.version
+                ? t("hero.download_text", { title: currentGame.title, version: `v${currentGame.version}` })
+                : t("hero.download_text_no_version", { title: currentGame.title })}
             </p>
 
             <div className="pt-2 flex items-center gap-3">
@@ -112,11 +116,11 @@ export default function HeroCarousel({ games }: { games: GameCardItem[] }) {
                 href={`/game/detail/${currentGame.slug}`}
                 className="inline-flex items-center gap-2 bg-gradient-to-r from-sky-400 to-blue-500 hover:from-sky-500 hover:to-blue-600 text-white font-extrabold px-6 py-3 rounded-full shadow-lg shadow-sky-500/20 active:scale-95 transition-all text-sm shrink-0"
               >
-                <Download className="w-4 h-4" /> Download Sekarang
+                <Download className="w-4 h-4" /> {t("hero.download_btn")}
               </Link>
               {currentGame.version && (
                 <span className="text-xs text-slate-500 font-mono hidden sm:inline-block">
-                  Versi {currentGame.version}
+                  {t("hero.version", { version: currentGame.version })}
                 </span>
               )}
             </div>
