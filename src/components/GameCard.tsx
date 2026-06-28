@@ -6,7 +6,10 @@ import { useBookmarks } from "@/context/BookmarksContext";
 
 export default function GameCard({ game }: { game: GameCardItem }) {
   const imageSrc = getProxyUrl(game.thumbnail || game.image);
-  const endpoint = game.endpoint || `/game/detail/${game.slug}`;
+  let endpoint = game.endpoint || `/game/${game.slug}`;
+  if (endpoint.startsWith("/game/detail/")) {
+    endpoint = endpoint.replace("/game/detail/", "/game/");
+  }
   const { isBookmarked, toggleBookmark } = useBookmarks();
   const isSaved = isBookmarked(game.slug);
 

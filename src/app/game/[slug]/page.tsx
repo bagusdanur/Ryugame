@@ -68,7 +68,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title: `${game.title} - Download Android & PC`,
       description: cleanDescription,
-      url: `https://ryugame.web.id/game/detail/${game.slug}`,
+      url: `https://ryugame.web.id/game/${game.slug}`,
       type: "website",
       images: [
         {

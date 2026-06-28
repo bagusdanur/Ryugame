@@ -113,7 +113,7 @@ export default function HeroCarousel({ games }: { games: GameCardItem[] }) {
 
             <div className="pt-2 flex items-center gap-3">
               <Link
-                href={`/game/detail/${currentGame.slug}`}
+                href={`/game/${currentGame.slug}`}
                 className="inline-flex items-center gap-2 bg-gradient-to-r from-sky-400 to-blue-500 hover:from-sky-500 hover:to-blue-600 text-white font-extrabold px-6 py-3 rounded-full shadow-lg shadow-sky-500/20 active:scale-95 transition-all text-sm shrink-0"
               >
                 <Download className="w-4 h-4" /> {t("hero.download_btn")}

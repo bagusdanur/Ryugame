@@ -25,7 +25,7 @@ export default function Navbar() {
       if (saved === 'false') {
         setIsBlurActive(false);
       }
-    } catch (e) {}
+    } catch {}
   }, []);
 
   const toggleBlur = () => {
@@ -38,7 +38,7 @@ export default function Navbar() {
       } else {
         document.documentElement.classList.remove('blur-thumbnails');
       }
-    } catch (e) {}
+    } catch {}
   };
 
   const handleSearch = (e: React.FormEvent) => {

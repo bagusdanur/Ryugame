@@ -18,7 +18,7 @@ export default function LoadMoreGames({ initialGames, initialTotalPages }: LoadM
   const { t } = useLanguage();
 
   // We only fetch when we increment currentPage past the loaded ones
-  const { data, isLoading } = useSWR<ApiListResponse>(
+  const { isLoading } = useSWR<ApiListResponse>(
     currentPage > pages.length ? `/game/terbaru?page=${currentPage}` : null,
     fetcher,
     {
